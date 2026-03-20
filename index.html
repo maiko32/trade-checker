@@ -33,23 +33,22 @@
         </div>
     </div>
 
-    <script>
-    function searchXLive() {
-        const idInput = document.getElementById('targetID').value.replace('@', '').trim();
-        if(!idInput) {
-            alert('IDを入力してくださいね！');
-            return;
-        }
-        
-        // 検索ワードの組み立て（IDと注意喚起・詐欺などのキーワード）
-        const keywords = `${idInput} (注意喚起 OR 詐欺 OR 届かない)`;
-        const encodedQuery = encodeURIComponent(keywords);
-        
-        // URLの末尾に「&f=live」を付けることで、強制的に「最新」タブを開きます
-        const url = `https://x.com/search?q=${encodedQuery}&f=live`;
-        
-        window.open(url, '_blank');
+<script>
+function searchXLive() {
+    const idInput = document.getElementById('targetID').value.replace('@', '').trim();
+    if(!idInput) {
+        alert('IDを入力してくださいね！');
+        return;
     }
-    </script>
-</body>
-</html>
+    
+    // 検索ワードを組み立て
+    const keywords = `${idInput} (注意喚起 OR 詐欺 OR 届かない)`;
+    const encodedQuery = encodeURIComponent(keywords);
+    
+    // 【修正ポイント】URLのパラメータを「f=live&q=...」の順に入れ替えます
+    // これにより、Xのシステムが先に「最新タブ(live)」という命令を読み取りやすくなります
+    const url = `https://x.com/search?f=live&q=${encodedQuery}`;
+    
+    window.open(url, '_blank');
+}
+</script>
