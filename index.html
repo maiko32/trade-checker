@@ -3,44 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>取引安全チェッカー 🌸</title>
+    <title>取引相手チェッカー 🌸</title>
     <style>
         :root { --main-pink: #ffdae0; --accent-pink: #ff8fa3; --bg-color: #fff9fa; }
-        body { font-family: sans-serif; background-color: var(--bg-color); text-align: center; padding: 40px 20px; }
+        body { font-family: sans-serif; background-color: var(--bg-color); text-align: center; padding: 40px 20px; color: #555; }
         .container { max-width: 450px; margin: auto; background: white; padding: 30px; border-radius: 25px; box-shadow: 0 10px 25px rgba(255,143,163,0.1); }
-        h1 { color: var(--accent-pink); font-size: 1.4em; }
-        input { padding: 15px; width: 85%; border-radius: 12px; border: 2px solid var(--main-pink); font-size: 16px; margin-bottom: 20px; }
-        button { width: 95%; padding: 15px; margin-bottom: 12px; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; color: white; }
-        .btn-x { background: #333; }
-        .btn-yahoo { background: #ff0033; }
-        .footer { margin-top: 30px; font-size: 12px; color: #aaa; text-align: left; background: #fff5f6; padding: 15px; border-radius: 10px; }
+        h1 { color: var(--accent-pink); font-size: 1.4em; margin-bottom: 20px; }
+        p { font-size: 0.9em; margin-bottom: 25px; }
+        input { padding: 15px; width: 85%; border-radius: 12px; border: 2px solid var(--main-pink); font-size: 16px; margin-bottom: 20px; outline: none; }
+        input:focus { border-color: var(--accent-pink); }
+        button { width: 95%; padding: 15px; margin-bottom: 12px; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; color: white; background: #333; transition: opacity 0.2s; }
+        button:active { opacity: 0.7; }
+        .footer { margin-top: 30px; font-size: 12px; color: #aaa; text-align: left; background: #fff5f6; padding: 15px; border-radius: 10px; line-height: 1.6; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🌸 取引相手チェッカー</h1>
-        <p>IDを入れて検索ボタンを押してね</p>
-        <input type="text" id="targetID" placeholder="IDを入力（@なし）">
-        <button class="btn-x" onclick="searchX()">Xで検索 (最新順) 🔍</button>
-        <button class="btn-yahoo" onclick="searchYahoo()">Yahoo!リアルタイム検索 ⚡️</button>
+        <p>相手のIDを入れて「最新」の投稿をチェック！</p>
+        
+        <input type="text" id="targetID" placeholder="IDをコピペ（@なし）">
+        
+        <button onclick="searchXLive()">Xで最新の注意喚起を検索 🔍</button>
+
         <div class="footer">
             <strong>⚠️ おねがい</strong><br>
-            検索結果を見て最終判断はご自身でお願いします。
+            ・検索結果の「最新」タブが表示されます。<br>
+            ・最終的な取引の判断はご自身の責任で行ってください。
         </div>
     </div>
+
     <script>
-    function getQuery() {
-        const id = document.getElementById('targetID').value.replace('@', '').trim();
-        if(!id) { alert('IDを入力してくださいね！'); return null; }
-        return encodeURIComponent(`${id} (注意喚起 OR 詐欺 OR 届かない)`);
-    }
-    function searchX() {
-        const query = getQuery();
-        if(query) window.open(`https://x.com/search?q=${query}&f=live`, '_blank');
-    }
-    function searchYahoo() {
-        const query = getQuery();
-        if(query) window.open(`https://search.yahoo.co.jp/realtime/search?p=${query}`, '_blank');
+    function searchXLive() {
+        const idInput = document.getElementById('targetID').value.replace('@', '').trim();
+        if(!idInput) {
+            alert('IDを入力してくださいね！');
+            return;
+        }
+        
+        // 検索ワードの組み立て（IDと注意喚起・詐欺などのキーワード）
+        const keywords = `${idInput} (注意喚起 OR 詐欺 OR 届かない)`;
+        const encodedQuery = encodeURIComponent(keywords);
+        
+        // URLの末尾に「&f=live」を付けることで、強制的に「最新」タブを開きます
+        const url = `https://x.com/search?q=${encodedQuery}&f=live`;
+        
+        window.open(url, '_blank');
     }
     </script>
 </body>
