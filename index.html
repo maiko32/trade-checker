@@ -24,13 +24,16 @@
             background: var(--bg);
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
             padding: 20px;
+            gap: 16px;
             background-image:
                 radial-gradient(circle at 20% 20%, rgba(255,177,193,0.25) 0%, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(255,218,224,0.35) 0%, transparent 50%);
         }
+
+        /* ── メインカード ── */
         .container {
             width: 100%;
             max-width: 460px;
@@ -62,44 +65,19 @@
             background: rgba(255,255,255,0.07);
         }
         .header-emoji { font-size: 2em; display: block; margin-bottom: 6px; }
-        .header h1 {
-            color: white;
-            font-size: 1.35em;
-            font-weight: 900;
-            letter-spacing: 0.03em;
-            position: relative;
-        }
-        .header p {
-            color: rgba(255,255,255,0.85);
-            font-size: 0.82em;
-            margin-top: 6px;
-            position: relative;
-        }
+        .header h1 { color: white; font-size: 1.35em; font-weight: 900; letter-spacing: 0.03em; position: relative; }
+        .header p { color: rgba(255,255,255,0.85); font-size: 0.82em; margin-top: 6px; position: relative; }
         .body { padding: 28px; }
-        .input-wrap {
-            position: relative;
-            margin-bottom: 18px;
-        }
+        .input-wrap { position: relative; margin-bottom: 18px; }
         .at-badge {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.1em;
-            font-weight: 900;
-            color: var(--pink-main);
-            pointer-events: none;
+            position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+            font-size: 1.1em; font-weight: 900; color: var(--pink-main); pointer-events: none;
         }
         input[type="text"] {
-            width: 100%;
-            padding: 15px 15px 15px 36px;
-            border-radius: 14px;
-            border: 2px solid var(--pink-light);
-            font-size: 15px;
-            font-family: 'Zen Kaku Gothic New', sans-serif;
-            color: var(--text);
-            background: #fff8f9;
-            outline: none;
+            width: 100%; padding: 15px 15px 15px 36px;
+            border-radius: 14px; border: 2px solid var(--pink-light);
+            font-size: 15px; font-family: 'Zen Kaku Gothic New', sans-serif;
+            color: var(--text); background: #fff8f9; outline: none;
             transition: border-color 0.2s, box-shadow 0.2s;
         }
         input[type="text"]::placeholder { color: #cdb0ba; }
@@ -108,122 +86,153 @@
             box-shadow: 0 0 0 4px rgba(255,143,163,0.12);
             background: white;
         }
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 18px;
-        }
+        .btn-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
         .btn {
-            width: 100%;
-            padding: 14px 18px;
-            border: none;
-            border-radius: 14px;
-            font-size: 14px;
-            font-weight: 700;
-            font-family: 'Zen Kaku Gothic New', sans-serif;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+            width: 100%; padding: 14px 18px; border: none; border-radius: 14px;
+            font-size: 14px; font-weight: 700; font-family: 'Zen Kaku Gothic New', sans-serif;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            gap: 8px; transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
             letter-spacing: 0.02em;
         }
         .btn:active { transform: scale(0.97); opacity: 0.85; }
         .btn-primary {
             background: linear-gradient(135deg, var(--pink-main), var(--pink-deep));
-            color: white;
-            box-shadow: 0 6px 20px rgba(224,92,122,0.3);
+            color: white; box-shadow: 0 6px 20px rgba(224,92,122,0.3);
         }
         .btn-primary:hover { box-shadow: 0 8px 24px rgba(224,92,122,0.4); transform: translateY(-1px); }
         .btn-secondary {
-            background: white;
-            color: var(--pink-deep);
-            border: 2px solid var(--pink-mid);
-            box-shadow: 0 2px 8px rgba(224,92,122,0.08);
+            background: white; color: var(--pink-deep);
+            border: 2px solid var(--pink-mid); box-shadow: 0 2px 8px rgba(224,92,122,0.08);
         }
         .btn-secondary:hover { background: #fff0f3; border-color: var(--pink-main); }
         .keywords-label {
-            font-size: 11px;
-            color: var(--text-light);
-            margin-bottom: 8px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
+            font-size: 11px; color: var(--text-light); margin-bottom: 8px;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
         }
-        .keyword-chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 22px;
-        }
+        .keyword-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px; }
         .chip {
-            background: #fff0f3;
-            color: var(--pink-deep);
-            font-size: 11px;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 99px;
-            border: 1px solid var(--pink-light);
+            background: #fff0f3; color: var(--pink-deep); font-size: 11px; font-weight: 700;
+            padding: 4px 10px; border-radius: 99px; border: 1px solid var(--pink-light);
         }
         .latest-tip {
             background: linear-gradient(135deg, #fff8e1, #fff3cd);
-            border: 1px solid #ffe082;
-            border-radius: 12px;
-            padding: 12px 14px;
-            font-size: 12px;
-            color: #795548;
-            line-height: 1.7;
-            margin-bottom: 16px;
-            display: flex;
-            gap: 8px;
-            align-items: flex-start;
+            border: 1px solid #ffe082; border-radius: 12px;
+            padding: 12px 14px; font-size: 12px; color: #795548;
+            line-height: 1.7; margin-bottom: 16px;
+            display: flex; gap: 8px; align-items: flex-start;
         }
         .latest-tip .tip-icon { font-size: 1.2em; flex-shrink: 0; margin-top: 1px; }
         .latest-tip strong { color: #5d4037; }
         .notice {
-            background: #fff8f9;
-            border: 1px solid var(--pink-light);
-            border-radius: 12px;
-            padding: 14px 16px;
-            font-size: 12px;
-            color: var(--text-light);
-            line-height: 1.7;
+            background: #fff8f9; border: 1px solid var(--pink-light);
+            border-radius: 12px; padding: 14px 16px;
+            font-size: 12px; color: var(--text-light); line-height: 1.7;
         }
         .notice strong { color: var(--pink-deep); font-weight: 700; }
         #result {
-            margin-bottom: 16px;
-            padding: 12px 16px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 700;
-            display: none;
-            align-items: center;
-            gap: 8px;
+            margin-bottom: 16px; padding: 12px 16px; border-radius: 12px;
+            font-size: 13px; font-weight: 700; display: none; align-items: center; gap: 8px;
         }
         #result.show { display: flex; }
-        #result.opened {
-            background: #f0faf5;
-            color: var(--safe);
-            border: 1px solid #b2dfcb;
+        #result.opened { background: #f0faf5; color: var(--safe); border: 1px solid #b2dfcb; }
+
+        /* ── コラム共通 ── */
+        .column-card {
+            width: 100%;
+            max-width: 460px;
+            background: var(--card);
+            border-radius: 20px;
+            box-shadow: 0 8px 30px var(--shadow);
+            overflow: hidden;
+        }
+        .column-toggle {
+            width: 100%; background: none; border: none;
+            padding: 18px 22px; cursor: pointer;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 12px; text-align: left;
+            font-family: 'Zen Kaku Gothic New', sans-serif;
+            transition: background 0.15s;
+        }
+        .column-toggle:hover { background: #fff5f7; }
+        .column-toggle-left { display: flex; align-items: center; gap: 10px; }
+        .column-badge {
+            background: linear-gradient(135deg, var(--pink-main), var(--pink-deep));
+            color: white; font-size: 10px; font-weight: 900;
+            padding: 3px 8px; border-radius: 99px; white-space: nowrap;
+            letter-spacing: 0.05em;
+        }
+        .column-title {
+            font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.45;
+        }
+        .column-arrow {
+            font-size: 11px; color: var(--pink-main); flex-shrink: 0;
+            transition: transform 0.25s; display: inline-block;
+        }
+        .column-toggle.open .column-arrow { transform: rotate(180deg); }
+        .column-body {
+            display: none; padding: 0 22px 20px;
+            font-size: 13px; color: var(--text); line-height: 1.8;
+            border-top: 1px solid var(--pink-light);
+        }
+        .column-body.open { display: block; }
+        .column-body p { margin-top: 12px; }
+        .column-body ul, .column-body ol { margin-top: 10px; padding-left: 1.4em; }
+        .column-body li { margin-bottom: 6px; }
+
+        /* テンプレートブロック */
+        .template-block { margin-top: 14px; }
+        .template-label {
+            font-size: 11px; font-weight: 900; color: var(--pink-deep);
+            letter-spacing: 0.05em; margin-bottom: 5px;
+        }
+        .template-item {
+            background: #fff8f9; border: 1px solid var(--pink-light);
+            border-radius: 10px; padding: 11px 12px;
+            margin-bottom: 10px; position: relative;
+        }
+        .template-text {
+            font-size: 12.5px; color: var(--text); line-height: 1.75;
+            white-space: pre-wrap; padding-right: 64px;
+        }
+        .copy-btn {
+            position: absolute; top: 10px; right: 10px;
+            background: linear-gradient(135deg, var(--pink-main), var(--pink-deep));
+            color: white; border: none; border-radius: 8px;
+            font-size: 11px; font-weight: 700; font-family: 'Zen Kaku Gothic New', sans-serif;
+            padding: 5px 10px; cursor: pointer;
+            transition: opacity 0.2s, transform 0.15s;
+            white-space: nowrap;
+        }
+        .copy-btn:active { transform: scale(0.93); opacity: 0.8; }
+        .copy-btn.copied { background: linear-gradient(135deg, #4caf82, #2e7d56); }
+
+        /* 運営者情報 */
+        .operator-info {
+            width: 100%;
+            max-width: 460px;
+            text-align: center;
+            font-size: 11px;
+            color: #bbb;
+            padding: 4px 0 8px;
+            line-height: 1.7;
         }
     </style>
 </head>
 <body>
+
+    <!-- ── メインツール ── -->
     <div class="container">
         <p style="font-size: 10px; color: #ccc; text-align: right; margin-bottom: 5px; padding-right: 12px;">※本ページはプロモーションが含まれています</p>
         <div class="header">
-            <span class="header-emoji">🌸</span>
-            <h1>取引相手チェッカー</h1>
-            <p>相手のXアカウントIDを入力して注意喚起をチェック</p>
+            
+            <h1>🌸 取引相手チェッカー</h1>
+            <p>注意喚起されているアカウントではないかチェック！</p>
         </div>
         <div class="body">
             <div class="input-wrap">
                 <span class="at-badge">@</span>
-                <input type="text" id="targetID" placeholder="アカウントIDをペースト" autocomplete="off" autocorrect="off" spellcheck="false">
+                <input type="text" id="targetID" placeholder="取引相手のXアカウントIDをペースト" autocomplete="off" autocorrect="off" spellcheck="false">
             </div>
-
             <div class="keywords-label">検索キーワード</div>
             <div class="keyword-chips">
                 <span class="chip">注意喚起</span>
@@ -233,21 +242,12 @@
                 <span class="chip">未着</span>
                 <span class="chip">ブロック</span>
             </div>
-
             <div class="btn-group">
-                <button class="btn btn-primary" onclick="searchAll()">
-                    🔍 まとめて検索（推奨）
-                </button>
-                <button class="btn btn-secondary" onclick="searchWarning()">
-                    ⚠️ 注意喚起・トラブル系
-                </button>
-                <button class="btn btn-secondary" onclick="searchScam()">
-                    🚨 詐欺・未着・ブロック系
-                </button>
+                <button class="btn btn-primary" onclick="searchAll()">🔍 まとめて検索（推奨）</button>
+                <button class="btn btn-secondary" onclick="searchWarning()">⚠️ 注意喚起・トラブル系</button>
+                <button class="btn btn-secondary" onclick="searchScam()">🚨 詐欺・未着・ブロック系</button>
             </div>
-
             <div id="result"></div>
-
             <div class="latest-tip">
                 <span class="tip-icon">💡</span>
                 <div>
@@ -255,7 +255,6 @@
                     Xが開いたら、画面上部の「話題」の隣にある<strong>「最新」</strong>をタップ／クリックしてください。
                 </div>
             </div>
-
             <div class="notice">
                 <strong>⚠️ ご注意</strong><br>
                 ・ヒットがなくても100%安全とは限りません<br>
@@ -264,59 +263,193 @@
         </div>
     </div>
 
+    <!-- ── コラム① ── -->
+    <div class="column-card">
+        <button class="column-toggle" onclick="toggleColumn(this)">
+            <div class="column-toggle-left">
+                <span class="column-badge">COLUMN 01</span>
+                <span class="column-title">ID検索でヒットしなくても要注意？<br>安心な取引をするためのポイント</span>
+            </div>
+            <span class="column-arrow">▼</span>
+        </button>
+        <div class="column-body">
+            <p>このツールで検索してもヒットがなかった場合、「このアカウントは安全！」と断言できるわけではありません。注意喚起の投稿がそもそもされていないケースや、アカウントが一度削除・変更されているケースもあるためです。</p>
+            <p>ヒットがなくても、以下の点もあわせて確認するとより安心です。</p>
+            <ul>
+                <li>アカウントの作成日が極端に新しくないか</li>
+                <li>過去の投稿（ツイート履歴）がある程度あるか</li>
+                <li>過去の投稿へのリプで他アカウントからの連絡がないか<br>（「返金してください」「返信してください」「困っています」など）</li>
+            </ul>
+            <p>このツールはあくまで「注意喚起投稿の有無を調べるもの」です。総合的に判断して、安全な取引を心がけてください。</p>
+        </div>
+    </div>
+
+    <!-- ── コラム② ── -->
+    <div class="column-card">
+        <button class="column-toggle" onclick="toggleColumn(this)">
+            <div class="column-toggle-left">
+                <span class="column-badge">COLUMN 02</span>
+                <span class="column-title">大切なトレカを守る！<br>折れ曲がり防止の梱包テクニック</span>
+            </div>
+            <span class="column-arrow">▼</span>
+        </button>
+        <div class="column-body">
+            <p>せっかくの取引が「トレカが折れて届いた」というトラブルにならないよう、梱包はしっかりしたいところ。基本の手順をまとめました。</p>
+            <ol>
+                <li>トレカをスリーブに入れる<br><span style="font-size:12px;color:var(--text-light);">（薄いペラペラのスリーブより、少し厚みのあるスリーブの方が安心！）</span></li>
+                <li>硬質ケースに入れて保護する</li>
+                <li>硬質ケースをチャック付き袋などに入れて防水保護する</li>
+            </ol>
+            <p>過剰包装は不要ですが、この3ステップを押さえて丁寧な梱包を心がけると、受け取り手も安心できるはずです♪</p>
+        </div>
+    </div>
+
+    <!-- ── コラム③ ── -->
+    <div class="column-card">
+        <button class="column-toggle" onclick="toggleColumn(this)">
+            <div class="column-toggle-left">
+                <span class="column-badge">COLUMN 03</span>
+                <span class="column-title">Xでの取引がスムーズになる！<br>取引連絡のテンプレート</span>
+            </div>
+            <span class="column-arrow">▼</span>
+        </button>
+        <div class="column-body">
+            <p>取引はしてみたいけど、「なんて送ればいいかわからない…」という方もおられるのではないでしょうか。そんな時は以下のテンプレートをご活用ください。</p>
+
+            <div class="template-block">
+                <div class="template-label">【取引申し込み連絡例】</div>
+                <div class="template-item">
+                    <div class="template-text">はじめまして！こちらの投稿を拝見しました。もしまだ募集中でしたら、ぜひお取引させていただけないでしょうか。ご検討よろしくお願いします。</div>
+                    <button class="copy-btn" onclick="copyTemplate(this)">コピー</button>
+                </div>
+
+                <div class="template-label">【取引成立後の確認DM例】</div>
+                <div class="template-item">
+                    <div class="template-text">お取引についてご快諾いただきありがとうございます！お取引内容はこちらでお間違えないでしょうか。念の為ご確認をお願いいたします。</div>
+                    <button class="copy-btn" onclick="copyTemplate(this)">コピー</button>
+                </div>
+
+                <div class="template-label">【取引内容確認後の取引進行DM例（交換時）】</div>
+                <div class="template-item">
+                    <div class="template-text">お先にこちらの住所を共有いたします。お手数ですが、お手隙の際に主様もご住所をお知らせいただけますでしょうか。
+なお、発送は普通郵便、梱包はスリーブ＋硬質ケース＋防水袋を予定しております。</div>
+                    <button class="copy-btn" onclick="copyTemplate(this)">コピー</button>
+                </div>
+
+                <div class="template-label">【発送日時の約束DM例（交換時）】</div>
+                <div class="template-item">
+                    <div class="template-text">発送につきまして、同日発送を希望しておりますが、ご対応可能でしょうか。
+当方はX月X日以降であれば可能ですので、主様のご都合の良いお時間を教えていただけますと幸いです。</div>
+                    <button class="copy-btn" onclick="copyTemplate(this)">コピー</button>
+                </div>
+
+                <div class="template-label">【発送物準備後の発送前確認DM例（交換時・写真を送る）】</div>
+                <div class="template-item">
+                    <div class="template-text">お待たせいたしました。
+発送のご準備ができましたので、宛名のご確認をお願いいたします。</div>
+                    <button class="copy-btn" onclick="copyTemplate(this)">コピー</button>
+                </div>
+
+                <div class="template-label">【発送完了連絡DM例】</div>
+                <div class="template-item">
+                    <div class="template-text">本日、予定通り発送しましたのでご連絡いたします。
+お手元に届きましたら、お手数ですがご一報いただけますと幸いです。
+ご到着まで今しばらくお待ちください。引き続きどうぞよろしくお願いいたします。</div>
+                    <button class="copy-btn" onclick="copyTemplate(this)">コピー</button>
+                </div>
+
+                <div class="template-label">【受け取り連絡DM例】</div>
+                <div class="template-item">
+                    <div class="template-text">お世話になっております。
+本日無事に受け取りましたのでご連絡いたしました。
+（当方のものが届くまで、もうしばらくお待ちください。）</div>
+                    <button class="copy-btn" onclick="copyTemplate(this)">コピー</button>
+                </div>
+
+                <div class="template-label">【取引終了時のお礼DM例】</div>
+                <div class="template-item">
+                    <div class="template-text">この度はお取引いただき、ありがとうございました！
+またのご縁がございましたら、どうぞよろしくお願いいたします。</div>
+                    <button class="copy-btn" onclick="copyTemplate(this)">コピー</button>
+                </div>
+            </div>
+
+            <p style="margin-top:14px;">テンプレはぜひ自分らしくアレンジして使ってみてください！丁寧な文面はトラブル防止にもなります。</p>
+        </div>
+    </div>
+
+    <!-- ── 運営者情報 ── -->
+    <div class="operator-info">
+        運営者：kanimiso｜旅行と推しが好きなオタク
+    </div>
+
     <script>
         function getID() {
             const raw = document.getElementById('targetID').value.replace(/^@/, '').trim();
-            if (!raw) {
-                alert('IDを入力してください 🌸');
-                return null;
-            }
+            if (!raw) { alert('IDを入力してください 🌸'); return null; }
             return raw;
         }
-
         function showResult(msg, type) {
             const el = document.getElementById('result');
             el.textContent = msg;
             el.className = 'show ' + type;
         }
-
         function openSearch(query) {
-            // lang:ja を末尾に付けて日本語投稿のみに絞り込む
-            // f=live を指定するが、Xの仕様上、話題タブで開くことがある
             const fullQuery = query + ' lang:ja';
             const url = 'https://x.com/search?q=' + encodeURIComponent(fullQuery) + '&f=live';
             window.open(url, '_blank');
         }
-
         function searchAll() {
-            const id = getID();
-            if (!id) return;
-            // IDを"完全一致"扱いにするためダブルクォートで囲む
-            // ORでつなぐ各キーワードもクォートで確実に含める
+            const id = getID(); if (!id) return;
             const q = '"' + id + '" ("注意喚起" OR "詐欺" OR "届かない" OR "トラブル" OR "未着" OR "ブロック")';
             openSearch(q);
             showResult('✅ Xを開きました！「最新」タブに切り替えて確認してください', 'opened');
         }
-
         function searchWarning() {
-            const id = getID();
-            if (!id) return;
-            const q = '"' + id + '" ("注意喚起" OR "トラブル" OR "要注意")';
-            openSearch(q);
+            const id = getID(); if (!id) return;
+            openSearch('"' + id + '" ("注意喚起" OR "トラブル" OR "要注意")');
             showResult('✅ 注意喚起系を開きました！「最新」タブに切り替えてください', 'opened');
         }
-
         function searchScam() {
-            const id = getID();
-            if (!id) return;
-            const q = '"' + id + '" ("詐欺" OR "届かない" OR "未着" OR "ブロック")';
-            openSearch(q);
+            const id = getID(); if (!id) return;
+            openSearch('"' + id + '" ("詐欺" OR "届かない" OR "未着" OR "ブロック")');
             showResult('✅ 詐欺・未着系を開きました！「最新」タブに切り替えてください', 'opened');
         }
-
         document.getElementById('targetID').addEventListener('keydown', function(e) {
             if (e.key === 'Enter') searchAll();
         });
+
+        // アコーディオン
+        function toggleColumn(btn) {
+            const body = btn.nextElementSibling;
+            const isOpen = body.classList.contains('open');
+            body.classList.toggle('open', !isOpen);
+            btn.classList.toggle('open', !isOpen);
+        }
+
+        // テンプレートコピー
+        function copyTemplate(btn) {
+            const text = btn.previousElementSibling.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                btn.textContent = '✓ コピー済';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'コピー';
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(() => {
+                // フォールバック（古いブラウザ対応）
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                btn.textContent = '✓ コピー済';
+                btn.classList.add('copied');
+                setTimeout(() => { btn.textContent = 'コピー'; btn.classList.remove('copied'); }, 2000);
+            });
+        }
     </script>
 </body>
 </html>
