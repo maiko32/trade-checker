@@ -251,7 +251,7 @@
                 <span class="tip-icon">💡</span>
                 <div>
                     <strong>「最新」タブの開き方</strong><br>
-                    Xが開いたら、画面上部の「話題」の隣にある<strong>「最新」</strong>をタップ／クリックしてください。新しい投稿から順に表示されます。
+                    Xが開いたら、画面上部の「話題」の隣にある<strong>「最新」</strong>をタップ／クリックしてください。
                 </div>
             </div>
 
@@ -279,18 +279,20 @@
             el.className = 'show ' + type;
         }
 
-        // XのURLパラメータ f=live は仕様上、外部サイトからのリンクでは
-        // 無視されることが多い。手動での「最新」タブ切り替えを案内する。
         function openSearch(query) {
-            const url = `https://x.com/search?q=${encodeURIComponent(query)}&f=live`;
+            // lang:ja を末尾に付けて日本語投稿のみに絞り込む
+            // f=live を指定するが、Xの仕様上、話題タブで開くことがある
+            const fullQuery = query + ' lang:ja';
+            const url = 'https://x.com/search?q=' + encodeURIComponent(fullQuery) + '&f=live';
             window.open(url, '_blank');
         }
 
         function searchAll() {
             const id = getID();
             if (!id) return;
-            // @なし検索（IDが含まれる投稿全般を拾う）
-            const q = `${id} (注意喚起 OR トラブル OR 詐欺 OR 届かない OR 未着 OR ブロック)`;
+            // IDを"完全一致"扱いにするためダブルクォートで囲む
+            // ORでつなぐ各キーワードもクォートで確実に含める
+            const q = '"' + id + '" ("注意喚起" OR "詐欺" OR "届かない" OR "トラブル" OR "未着" OR "ブロック")';
             openSearch(q);
             showResult('✅ Xを開きました！「最新」タブに切り替えて確認してね', 'opened');
         }
@@ -298,14 +300,16 @@
         function searchWarning() {
             const id = getID();
             if (!id) return;
-            openSearch(`${id} (注意喚起 OR トラブル OR 要注意)`);
+            const q = '"' + id + '" ("注意喚起" OR "トラブル" OR "要注意")';
+            openSearch(q);
             showResult('✅ 注意喚起系を開きました！「最新」タブに切り替えてね', 'opened');
         }
 
         function searchScam() {
             const id = getID();
             if (!id) return;
-            openSearch(`${id} (詐欺 OR 届かない OR 未着 OR ブロック)`);
+            const q = '"' + id + '" ("詐欺" OR "届かない" OR "未着" OR "ブロック")';
+            openSearch(q);
             showResult('✅ 詐欺・未着系を開きました！「最新」タブに切り替えてね', 'opened');
         }
 
