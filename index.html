@@ -16,12 +16,9 @@
             --text: #4a3040;
             --text-light: #9a7080;
             --safe: #4caf82;
-            --warn: #ff8fa3;
             --shadow: rgba(224, 92, 122, 0.12);
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
         body {
             font-family: 'Zen Kaku Gothic New', sans-serif;
             background: var(--bg);
@@ -34,7 +31,6 @@
                 radial-gradient(circle at 20% 20%, rgba(255,177,193,0.25) 0%, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(255,218,224,0.35) 0%, transparent 50%);
         }
-
         .container {
             width: 100%;
             max-width: 460px;
@@ -43,15 +39,12 @@
             box-shadow: 0 20px 60px var(--shadow), 0 4px 16px rgba(224,92,122,0.08);
             overflow: hidden;
         }
-
-        /* ヘッダー */
         .header {
             background: linear-gradient(135deg, var(--pink-main) 0%, var(--pink-deep) 100%);
             padding: 28px 28px 24px;
             position: relative;
             overflow: hidden;
         }
-
         .header::before {
             content: '';
             position: absolute;
@@ -68,7 +61,6 @@
             border-radius: 50%;
             background: rgba(255,255,255,0.07);
         }
-
         .header-emoji { font-size: 2em; display: block; margin-bottom: 6px; }
         .header h1 {
             color: white;
@@ -83,15 +75,11 @@
             margin-top: 6px;
             position: relative;
         }
-
-        /* ボディ */
         .body { padding: 28px; }
-
         .input-wrap {
             position: relative;
             margin-bottom: 18px;
         }
-
         .at-badge {
             position: absolute;
             left: 16px;
@@ -102,7 +90,6 @@
             color: var(--pink-main);
             pointer-events: none;
         }
-
         input[type="text"] {
             width: 100%;
             padding: 15px 15px 15px 36px;
@@ -115,22 +102,18 @@
             outline: none;
             transition: border-color 0.2s, box-shadow 0.2s;
         }
-
         input[type="text"]::placeholder { color: #cdb0ba; }
         input[type="text"]:focus {
             border-color: var(--pink-main);
             box-shadow: 0 0 0 4px rgba(255,143,163,0.12);
             background: white;
         }
-
-        /* ボタングループ */
         .btn-group {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            margin-bottom: 22px;
+            margin-bottom: 18px;
         }
-
         .btn {
             width: 100%;
             padding: 14px 18px;
@@ -148,14 +131,12 @@
             letter-spacing: 0.02em;
         }
         .btn:active { transform: scale(0.97); opacity: 0.85; }
-
         .btn-primary {
             background: linear-gradient(135deg, var(--pink-main), var(--pink-deep));
             color: white;
             box-shadow: 0 6px 20px rgba(224,92,122,0.3);
         }
         .btn-primary:hover { box-shadow: 0 8px 24px rgba(224,92,122,0.4); transform: translateY(-1px); }
-
         .btn-secondary {
             background: white;
             color: var(--pink-deep);
@@ -163,8 +144,6 @@
             box-shadow: 0 2px 8px rgba(224,92,122,0.08);
         }
         .btn-secondary:hover { background: #fff0f3; border-color: var(--pink-main); }
-
-        /* キーワードバッジ */
         .keywords-label {
             font-size: 11px;
             color: var(--text-light);
@@ -173,14 +152,12 @@
             text-transform: uppercase;
             letter-spacing: 0.08em;
         }
-
         .keyword-chips {
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
             margin-bottom: 22px;
         }
-
         .chip {
             background: #fff0f3;
             color: var(--pink-deep);
@@ -190,8 +167,21 @@
             border-radius: 99px;
             border: 1px solid var(--pink-light);
         }
-
-        /* フッター注意書き */
+        .latest-tip {
+            background: linear-gradient(135deg, #fff8e1, #fff3cd);
+            border: 1px solid #ffe082;
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-size: 12px;
+            color: #795548;
+            line-height: 1.7;
+            margin-bottom: 16px;
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+        }
+        .latest-tip .tip-icon { font-size: 1.2em; flex-shrink: 0; margin-top: 1px; }
+        .latest-tip strong { color: #5d4037; }
         .notice {
             background: #fff8f9;
             border: 1px solid var(--pink-light);
@@ -202,11 +192,9 @@
             line-height: 1.7;
         }
         .notice strong { color: var(--pink-deep); font-weight: 700; }
-
-        /* 結果表示エリア */
         #result {
-            margin-top: 18px;
-            padding: 14px 16px;
+            margin-bottom: 16px;
+            padding: 12px 16px;
             border-radius: 12px;
             font-size: 13px;
             font-weight: 700;
@@ -214,13 +202,7 @@
             align-items: center;
             gap: 8px;
         }
-
         #result.show { display: flex; }
-        #result.searching {
-            background: #f5f5f5;
-            color: #888;
-            border: 1px solid #e0e0e0;
-        }
         #result.opened {
             background: #f0faf5;
             color: var(--safe);
@@ -235,7 +217,6 @@
             <h1>取引相手チェッカー</h1>
             <p>相手のXアカウントIDを入力して注意喚起をチェック</p>
         </div>
-
         <div class="body">
             <div class="input-wrap">
                 <span class="at-badge">@</span>
@@ -266,9 +247,16 @@
 
             <div id="result"></div>
 
+            <div class="latest-tip">
+                <span class="tip-icon">💡</span>
+                <div>
+                    <strong>「最新」タブの開き方</strong><br>
+                    Xが開いたら、画面上部の「話題」の隣にある<strong>「最新」</strong>をタップ／クリックしてください。新しい投稿から順に表示されます。
+                </div>
+            </div>
+
             <div class="notice">
                 <strong>⚠️ ご注意</strong><br>
-                ・検索結果の「最新」タブが開きます<br>
                 ・ヒットがなくても100%安全とは限りません<br>
                 ・最終的な取引判断はご自身でお願いします
             </div>
@@ -291,34 +279,36 @@
             el.className = 'show ' + type;
         }
 
+        // XのURLパラメータ f=live は仕様上、外部サイトからのリンクでは
+        // 無視されることが多い。手動での「最新」タブ切り替えを案内する。
         function openSearch(query) {
-            const url = `https://x.com/search?q=${encodeURIComponent(query)}&src=typed_query&f=live`;
+            const url = `https://x.com/search?q=${encodeURIComponent(query)}&f=live`;
             window.open(url, '_blank');
         }
 
         function searchAll() {
             const id = getID();
             if (!id) return;
-            const q1 = `@${id} (注意喚起 OR トラブル OR 詐欺 OR 届かない OR 未着 OR ブロック)`;
-            openSearch(q1);
-            showResult('✅ 検索タブを開きました！「最新」タブで確認してね', 'opened');
+            // @なし検索（IDが含まれる投稿全般を拾う）
+            const q = `${id} (注意喚起 OR トラブル OR 詐欺 OR 届かない OR 未着 OR ブロック)`;
+            openSearch(q);
+            showResult('✅ Xを開きました！「最新」タブに切り替えて確認してね', 'opened');
         }
 
         function searchWarning() {
             const id = getID();
             if (!id) return;
-            openSearch(`@${id} (注意喚起 OR トラブル OR 要注意)`);
-            showResult('✅ 注意喚起系の検索を開きました', 'opened');
+            openSearch(`${id} (注意喚起 OR トラブル OR 要注意)`);
+            showResult('✅ 注意喚起系を開きました！「最新」タブに切り替えてね', 'opened');
         }
 
         function searchScam() {
             const id = getID();
             if (!id) return;
-            openSearch(`@${id} (詐欺 OR 届かない OR 未着 OR ブロック)`);
-            showResult('✅ 詐欺・未着系の検索を開きました', 'opened');
+            openSearch(`${id} (詐欺 OR 届かない OR 未着 OR ブロック)`);
+            showResult('✅ 詐欺・未着系を開きました！「最新」タブに切り替えてね', 'opened');
         }
 
-        // Enterキーでも検索
         document.getElementById('targetID').addEventListener('keydown', function(e) {
             if (e.key === 'Enter') searchAll();
         });
