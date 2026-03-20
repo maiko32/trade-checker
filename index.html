@@ -4,51 +4,324 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>取引相手チェッカー 🌸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --main-pink: #ffdae0; --accent-pink: #ff8fa3; --bg-color: #fff9fa; }
-        body { font-family: sans-serif; background-color: var(--bg-color); text-align: center; padding: 40px 20px; color: #555; }
-        .container { max-width: 450px; margin: auto; background: white; padding: 30px; border-radius: 25px; box-shadow: 0 10px 25px rgba(255,143,163,0.1); }
-        h1 { color: var(--accent-pink); font-size: 1.4em; margin-bottom: 20px; }
-        p { font-size: 0.9em; margin-bottom: 25px; }
-        input { padding: 15px; width: 85%; border-radius: 12px; border: 2px solid var(--main-pink); font-size: 16px; margin-bottom: 20px; outline: none; }
-        input:focus { border-color: var(--accent-pink); }
-        button { width: 95%; padding: 15px; margin-bottom: 12px; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; color: white; background: #333; transition: opacity 0.2s; }
-        button:active { opacity: 0.7; }
-        .footer { margin-top: 30px; font-size: 12px; color: #aaa; text-align: left; background: #fff5f6; padding: 15px; border-radius: 10px; line-height: 1.6; }
+        :root {
+            --pink-light: #ffdae0;
+            --pink-mid: #ffb3c1;
+            --pink-main: #ff8fa3;
+            --pink-deep: #e05c7a;
+            --bg: #fff5f7;
+            --card: #ffffff;
+            --text: #4a3040;
+            --text-light: #9a7080;
+            --safe: #4caf82;
+            --warn: #ff8fa3;
+            --shadow: rgba(224, 92, 122, 0.12);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Zen Kaku Gothic New', sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-image:
+                radial-gradient(circle at 20% 20%, rgba(255,177,193,0.25) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,218,224,0.35) 0%, transparent 50%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 460px;
+            background: var(--card);
+            border-radius: 28px;
+            box-shadow: 0 20px 60px var(--shadow), 0 4px 16px rgba(224,92,122,0.08);
+            overflow: hidden;
+        }
+
+        /* ヘッダー */
+        .header {
+            background: linear-gradient(135deg, var(--pink-main) 0%, var(--pink-deep) 100%);
+            padding: 28px 28px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -30px; right: -30px;
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+        }
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px; left: 30px;
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.07);
+        }
+
+        .header-emoji { font-size: 2em; display: block; margin-bottom: 6px; }
+        .header h1 {
+            color: white;
+            font-size: 1.35em;
+            font-weight: 900;
+            letter-spacing: 0.03em;
+            position: relative;
+        }
+        .header p {
+            color: rgba(255,255,255,0.85);
+            font-size: 0.82em;
+            margin-top: 6px;
+            position: relative;
+        }
+
+        /* ボディ */
+        .body { padding: 28px; }
+
+        .input-wrap {
+            position: relative;
+            margin-bottom: 18px;
+        }
+
+        .at-badge {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1em;
+            font-weight: 900;
+            color: var(--pink-main);
+            pointer-events: none;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px 15px 15px 36px;
+            border-radius: 14px;
+            border: 2px solid var(--pink-light);
+            font-size: 15px;
+            font-family: 'Zen Kaku Gothic New', sans-serif;
+            color: var(--text);
+            background: #fff8f9;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input[type="text"]::placeholder { color: #cdb0ba; }
+        input[type="text"]:focus {
+            border-color: var(--pink-main);
+            box-shadow: 0 0 0 4px rgba(255,143,163,0.12);
+            background: white;
+        }
+
+        /* ボタングループ */
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px 18px;
+            border: none;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'Zen Kaku Gothic New', sans-serif;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+            letter-spacing: 0.02em;
+        }
+        .btn:active { transform: scale(0.97); opacity: 0.85; }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--pink-main), var(--pink-deep));
+            color: white;
+            box-shadow: 0 6px 20px rgba(224,92,122,0.3);
+        }
+        .btn-primary:hover { box-shadow: 0 8px 24px rgba(224,92,122,0.4); transform: translateY(-1px); }
+
+        .btn-secondary {
+            background: white;
+            color: var(--pink-deep);
+            border: 2px solid var(--pink-mid);
+            box-shadow: 0 2px 8px rgba(224,92,122,0.08);
+        }
+        .btn-secondary:hover { background: #fff0f3; border-color: var(--pink-main); }
+
+        /* キーワードバッジ */
+        .keywords-label {
+            font-size: 11px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .keyword-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 22px;
+        }
+
+        .chip {
+            background: #fff0f3;
+            color: var(--pink-deep);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 99px;
+            border: 1px solid var(--pink-light);
+        }
+
+        /* フッター注意書き */
+        .notice {
+            background: #fff8f9;
+            border: 1px solid var(--pink-light);
+            border-radius: 12px;
+            padding: 14px 16px;
+            font-size: 12px;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        .notice strong { color: var(--pink-deep); font-weight: 700; }
+
+        /* 結果表示エリア */
+        #result {
+            margin-top: 18px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #result.show { display: flex; }
+        #result.searching {
+            background: #f5f5f5;
+            color: #888;
+            border: 1px solid #e0e0e0;
+        }
+        #result.opened {
+            background: #f0faf5;
+            color: var(--safe);
+            border: 1px solid #b2dfcb;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🌸 取引相手チェッカー</h1>
-        <p>相手のIDを入れて「最新」の投稿をチェック！</p>
-        
-        <input type="text" id="targetID" placeholder="IDをコピペ（@なし）">
-        
-        <button onclick="searchXLive()">Xで最新の注意喚起を検索 🔍</button>
+        <div class="header">
+            <span class="header-emoji">🌸</span>
+            <h1>取引相手チェッカー</h1>
+            <p>相手のXアカウントIDを入力して注意喚起をチェック</p>
+        </div>
 
-        <div class="footer">
-            <strong>⚠️ おねがい</strong><br>
-            ・検索結果の「最新」タブが表示されます。<br>
-            ・最終的な取引の判断はご自身の責任で行ってください。
+        <div class="body">
+            <div class="input-wrap">
+                <span class="at-badge">@</span>
+                <input type="text" id="targetID" placeholder="アカウントIDをペースト" autocomplete="off" autocorrect="off" spellcheck="false">
+            </div>
+
+            <div class="keywords-label">検索キーワード</div>
+            <div class="keyword-chips">
+                <span class="chip">注意喚起</span>
+                <span class="chip">詐欺</span>
+                <span class="chip">届かない</span>
+                <span class="chip">トラブル</span>
+                <span class="chip">未着</span>
+                <span class="chip">ブロック</span>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="searchAll()">
+                    🔍 まとめて検索（推奨）
+                </button>
+                <button class="btn btn-secondary" onclick="searchWarning()">
+                    ⚠️ 注意喚起・トラブル系
+                </button>
+                <button class="btn btn-secondary" onclick="searchScam()">
+                    🚨 詐欺・未着・ブロック系
+                </button>
+            </div>
+
+            <div id="result"></div>
+
+            <div class="notice">
+                <strong>⚠️ ご注意</strong><br>
+                ・検索結果の「最新」タブが開きます<br>
+                ・ヒットがなくても100%安全とは限りません<br>
+                ・最終的な取引判断はご自身でお願いします
+            </div>
         </div>
     </div>
 
-<script>
-function searchXLive() {
-    const idInput = document.getElementById('targetID').value.replace('@', '').trim();
-    if(!idInput) {
-        alert('IDを入力してくださいね！');
-        return;
-    }
-    
-    // 検索ワードを組み立て
-    const keywords = `${idInput} (注意喚起 OR 詐欺 OR 届かない)`;
-    const encodedQuery = encodeURIComponent(keywords);
-    
-    // 【修正ポイント】URLのパラメータを「f=live&q=...」の順に入れ替えます
-    // これにより、Xのシステムが先に「最新タブ(live)」という命令を読み取りやすくなります
-    const url = `https://x.com/search?f=live&q=${encodedQuery}`;
-    
-    window.open(url, '_blank');
-}
-</script>
+    <script>
+        function getID() {
+            const raw = document.getElementById('targetID').value.replace(/^@/, '').trim();
+            if (!raw) {
+                alert('IDを入力してください 🌸');
+                return null;
+            }
+            return raw;
+        }
+
+        function showResult(msg, type) {
+            const el = document.getElementById('result');
+            el.textContent = msg;
+            el.className = 'show ' + type;
+        }
+
+        function openSearch(query) {
+            const url = `https://x.com/search?q=${encodeURIComponent(query)}&f=live`;
+            window.open(url, '_blank');
+        }
+
+        function searchAll() {
+            const id = getID();
+            if (!id) return;
+            const q1 = `@${id} (注意喚起 OR トラブル OR 詐欺 OR 届かない OR 未着 OR ブロック)`;
+            openSearch(q1);
+            showResult('✅ 検索タブを開きました！「最新」タブで確認してね', 'opened');
+        }
+
+        function searchWarning() {
+            const id = getID();
+            if (!id) return;
+            openSearch(`@${id} (注意喚起 OR トラブル OR 要注意)`);
+            showResult('✅ 注意喚起系の検索を開きました', 'opened');
+        }
+
+        function searchScam() {
+            const id = getID();
+            if (!id) return;
+            openSearch(`@${id} (詐欺 OR 届かない OR 未着 OR ブロック)`);
+            showResult('✅ 詐欺・未着系の検索を開きました', 'opened');
+        }
+
+        // Enterキーでも検索
+        document.getElementById('targetID').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') searchAll();
+        });
+    </script>
+</body>
+</html>
